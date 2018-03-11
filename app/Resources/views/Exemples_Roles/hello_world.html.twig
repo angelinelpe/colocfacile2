@@ -1,0 +1,7 @@
+{% if app.user %}
+hello {{ app.user.username }}, tu es bien connecté en tant qu'utilisateur !
+{% endif %}
+
+{% if app.user.hasRole('ROLE_ADMIN')%}
+ <div> Tu es administrateur, toi seul peut voir cette phrase </div>
+{% endif %}
