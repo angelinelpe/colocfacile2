@@ -1,0 +1,18 @@
+
+{{ include('pages/inc/header.html.twig') }}        	
+
+<br><br>
+<a href='{{ absolute_url(asset('')) }}app_dev.php/annonce' class="btn btn-primary btn-lg">Retour</a>
+
+<br><br>
+<h3>Modifier l'annonce {{ id }}</h3>
+<br>
+
+
+{{form_start(form)}}
+{{form_widget(form)}}
+{{form_end(form)}}
+
+
+
+{{ include('pages/inc/footer.html.twig') }}  

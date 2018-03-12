@@ -1,0 +1,52 @@
+
+{{ include('pages/inc/header.html.twig') }}        	
+
+<br>
+<a href='{{ absolute_url(asset('')) }}app_dev.php/create' class="btn btn-primary btn-lg">Créer une Annonce</a>
+
+<br><br>
+<h3>Toutes les annonces</h3>
+<br><br>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date de début</th>
+      <th scope="col">Ville</th>
+      <th scope="col">Durée</th>
+      <th scope="col">Nombre de place</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for annonce in annonces %}
+
+    <tr>
+      <th scope="row">{{annonce.id}}</th>
+      <td>{{annonce.datedebut|date('Y-m-d')}}</td>
+      <td>{{annonce.ville}}</td>
+      <td>{{annonce.duree}}</td>
+      <td>{{annonce.nbplace}}</td>
+      <td>{{annonce.prix}}</td>
+      <td>{{annonce.description}}</td>
+      <td><a href='{{ absolute_url(asset('')) }}app_dev.php/view/{{ annonce.id }}' class="btn btn-primary btn-sm">Voir</a>
+      	<a href="{{ absolute_url(asset('')) }}app_dev.php/edit/{{ annonce.id }}" class="btn btn-secondary btn-sm">Modifier</a>
+      	<a href="{{ absolute_url(asset('')) }}app_dev.php/delete/{{ annonce.id }}" class="btn btn-danger btn-sm">Supprimer</a>
+      </td>
+    </tr>
+
+  {% else %}
+    <tr>
+      <td>/NA</td>
+    </tr>
+
+  {% endfor %}
+
+  </tbody>
+</table> 
+
+{{ include('pages/inc/footer.html.twig') }}        	

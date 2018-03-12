@@ -1,0 +1,25 @@
+
+{{ include('pages/inc/header.html.twig') }}        	
+
+<br><br>
+
+<div class="jumbotron">
+  <h3 class="display-3">Annonce {{ id }}</h3>
+  <p class="lead">{{ annonce.description }}</p>
+  <hr class="my-4">
+  <p>Date d'entrée dans la colocation : <strong>{{ annonce.datedebut|date('Y-m-d') }}</strong></p>
+  <p>Ville où est situé le logement : <strong> {{ annonce.ville }} </strong></p>
+  <p>Nombre de place disponible : <strong>{{ annonce.nbplace }}</strong></p>
+  <p>Durée de la location : <strong>{{ annonce.duree }} mois</strong></p>
+
+<p class="lead">
+    <a href='{{ absolute_url(asset('')) }}app_dev.php/annonce' class="btn btn-primary btn-lg">Retour</a>
+  </p>
+
+
+
+</div>
+
+
+
+{{ include('pages/inc/footer.html.twig') }}  
