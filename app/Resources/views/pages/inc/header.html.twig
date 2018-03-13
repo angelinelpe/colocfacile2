@@ -7,11 +7,41 @@
     </head>
     <body>
     	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Colocfacile</a>
-
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    
+  <a class="navbar-brand" href="{{ absolute_url(asset('')) }}app_dev.php/annonce">Colocfacile</a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+   <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" >
+              <a href='{{ absolute_url(asset('')) }}app_dev.php/admin'class="nav-link" >Backoffice</a>
+      </li>
+      <li class="nav-item">
+              <a href='{{ absolute_url(asset('')) }}app_dev.php/register'class="nav-link" style="">S'inscrire</a>
+      </li>
+      <li class="nav-item">
+             
+      </li>
+      <li class="nav-item">
+        
+      </li>
+    </ul>
+    <div class="form-group" style="margin-right:2%; margin-top:2%;">
+ <FORM action="AnnonceController.php" method="POST" class="form-group">
+              <SELECT name="style" size="1" class="custom-select">
+              <option selected="">Choisissez votre style</option>
+              <OPTION value="bootstrap" >Minty</OPTION>
+              <OPTION value="bootstrap2" >Journal</OPTION>
+              </SELECT>
+              </FORM>
+</div>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
+
+
 </nav>
         <div class="container">
 

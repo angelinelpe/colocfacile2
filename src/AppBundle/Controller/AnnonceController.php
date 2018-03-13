@@ -21,11 +21,14 @@ class AnnonceController extends Controller
      */
     public function showAllAnnonceAction(Request $request)
     {
-        // replace this example code with whatever you need
+        // La variable annonce prend toute les annonces récupérer par Doctrine
         $annonces = $this->getDoctrine()->getRepository('AppBundle:Annonce')->findAll();
+
 //        echo "<pre>";
 //        print_r($annonces);
 //        echo "</pre>";
+
+        // Affiche la page index.html.twig 
         return $this->render('pages/index.html.twig', ['annonces' => $annonces]);
     }
 
@@ -61,6 +64,7 @@ class AnnonceController extends Controller
        		$annonce->setDescription($description);
        		$annonce->setDuree($duree);
 
+//Envoi de l'entité dans Doctrine qui la créer dans la BDD
        		$em = $this->getDoctrine()->getManager();
        		$em->persist($annonce);
        		$em->flush();
@@ -81,6 +85,8 @@ class AnnonceController extends Controller
      */
     public function editAnnonceAction(Request $request, $id)
     {
+
+    //Récupère les données de l'annonce dans la BDD
  		$annonces = $this->getDoctrine()->getRepository('AppBundle:Annonce')->find($id);
 
  		$annonces->setDatedebut($annonces->getDatedebut());
@@ -111,7 +117,7 @@ class AnnonceController extends Controller
        		$description = $form['description']->getData();
        		$duree = $form['duree']->getData();
 
-			$em = $this->getDoctrine()->getManager();
+			   $em = $this->getDoctrine()->getManager();
        		$em = $em->getRepository('AppBundle:Annonce')->find($id);
 
        		$annonces->setDatedebut($datedebut);
@@ -161,6 +167,7 @@ class AnnonceController extends Controller
     	$em =$this->getDoctrine()->getManager();
     	$annonce = $em->getRepository('AppBundle:Annonce')->find($id);
     	$em->remove($annonce);
+      //"Met à jour la BDD"
     	$em->flush();
     	$this->addFlash('message', 'Annonce Supprimée !');
 
