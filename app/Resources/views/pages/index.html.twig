@@ -9,7 +9,7 @@
 <h3>Toutes les annonces</h3>
 <br><br>
 
-<table class="table table-hover">
+<table class="table table-hover" style="width:1500px; margin-left:-15%;">
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -35,8 +35,10 @@
       <td>{{annonce.prix}}</td>
       <td>{{annonce.description}}</td>
       <td><a href='{{ absolute_url(asset('')) }}app_dev.php/view/{{ annonce.id }}' class="btn btn-primary btn-sm">Voir</a>
-      	<a href="{{ absolute_url(asset('')) }}app_dev.php/edit/{{ annonce.id }}" class="btn btn-secondary btn-sm">Modifier</a>
-      	<a href="{{ absolute_url(asset('')) }}app_dev.php/delete/{{ annonce.id }}" class="btn btn-danger btn-sm">Supprimer</a>
+        <a href="{{ absolute_url(asset('')) }}app_dev.php/edit/{{ annonce.id }}" class="btn btn-secondary btn-sm">Modifier</a>
+        <a href="{{ absolute_url(asset('')) }}app_dev.php/delete/{{ annonce.id }}" class="btn btn-danger btn-sm">Supprimer</a>
+        <a href="{{ absolute_url(asset('')) }}app_dev.php/createR/{{ annonce.id }}" class="btn btn-info btn-sm">Réserver</a>
+
       </td>
     </tr>
 
@@ -49,5 +51,7 @@
 
   </tbody>
 </table> 
+
+
 
 {{ include('pages/inc/footer.html.twig') }}        	

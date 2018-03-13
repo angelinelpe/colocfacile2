@@ -50,3 +50,9 @@
         <div class="alert alert-dismissible alert-success">{{ success_message }}</div>
 
       {% endfor %}
+
+      {% for success_message in app.session.flashbag.get('refus') %}
+          <br>
+        <div class="alert alert-dismissible alert-warning">{{ success_message }}</div>
+
+      {% endfor %}

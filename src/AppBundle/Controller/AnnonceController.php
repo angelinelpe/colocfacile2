@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Annonce;
+use AppBundle\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,8 @@ class AnnonceController extends Controller
      */
     public function createAnnonceAction(Request $request)
     {
+
+       $user = $this->getUser();
        $annonce = new Annonce;
        $form = $this->createFormBuilder($annonce)
        ->add('datedebut', DateType::class, array('attr' => array('class' => 'form-control')))
@@ -63,6 +66,7 @@ class AnnonceController extends Controller
        		$annonce->setprix($prix);
        		$annonce->setDescription($description);
        		$annonce->setDuree($duree);
+          $annonce->setIdUser($user->getId());
 
 //Envoi de l'entité dans Doctrine qui la créer dans la BDD
        		$em = $this->getDoctrine()->getManager();
@@ -87,17 +91,19 @@ class AnnonceController extends Controller
     {
 
     //Récupère les données de l'annonce dans la BDD
+    $user = $this->getUser();
  		$annonces = $this->getDoctrine()->getRepository('AppBundle:Annonce')->find($id);
 
- 		$annonces->setDatedebut($annonces->getDatedebut());
- 		$annonces->setVille($annonces->getVille());
- 		$annonces->setNbplace($annonces->getNbplace());
- 		$annonces->setPrix($annonces->getPrix());
- 		$annonces->setDescription($annonces->getDescription());
- 		$annonces->setDuree($annonces->getDuree());
+    if (($annonces->getIdUser()) == ($user->getId())) {
+ 		 $annonces->setDatedebut($annonces->getDatedebut());
+ 		 $annonces->setVille($annonces->getVille());
+ 		 $annonces->setNbplace($annonces->getNbplace());
+ 		 $annonces->setPrix($annonces->getPrix());
+ 		 $annonces->setDescription($annonces->getDescription());
+ 		 $annonces->setDuree($annonces->getDuree());
 
- 		$form = $this->createFormBuilder($annonces)
- 		->add('datedebut', DateType::class, array('attr' => array('class' => 'form-control')))
+ 		 $form = $this->createFormBuilder($annonces)
+ 		 ->add('datedebut', DateType::class, array('attr' => array('class' => 'form-control')))
        ->add('ville', TextType::class, array('attr' => array('class' => 'form-control')))
        ->add('nbplace', NumberType::class, array('attr' => array('class' => 'form-control')))
        ->add('prix', NumberType::class, array('attr' => array('class' => 'form-control')))
@@ -106,39 +112,46 @@ class AnnonceController extends Controller
        ->add('save', SubmitType::class, array('label' => 'Modifier', 'attr' => array('class' => 'btn btn-primary')))
        ->getForm();
 
-        $form->handleRequest($request);
+         $form->handleRequest($request);
 
-       if($form->isSubmitted() && $form -> isValid()){
+        if($form->isSubmitted() && $form -> isValid()){
 
-       		$datedebut = $form['datedebut']->getData();
-       		$ville = $form['ville']->getData();
-       		$nbplace = $form['nbplace']->getData();
-       		$prix = $form['prix']->getData();
-       		$description = $form['description']->getData();
-       		$duree = $form['duree']->getData();
+         		$datedebut = $form['datedebut']->getData();
+         		$ville = $form['ville']->getData();
+         		$nbplace = $form['nbplace']->getData();
+         		$prix = $form['prix']->getData();
+         		$description = $form['description']->getData();
+         		$duree = $form['duree']->getData();
+  
+	 		      $em = $this->getDoctrine()->getManager();
+       		  $em = $em->getRepository('AppBundle:Annonce')->find($id);
+  
+         		$annonces->setDatedebut($datedebut);
+         		$annonces->setVille($ville);
+         		$annonces->setNbplace($nbplace);
+         		$annonces->setprix($prix);
+         		$annonces->setDescription($description);
+         		$annonces->setDuree($duree);
+  
+         		$em = $this->getDoctrine()->getManager();
+  
+         		$em->flush();
+         		$this->addFlash('message', 'Annonce modifiée !');
+  
+         		return $this->redirectToRoute('View_all_annonce_route');
+         }
 
-			   $em = $this->getDoctrine()->getManager();
-       		$em = $em->getRepository('AppBundle:Annonce')->find($id);
-
-       		$annonces->setDatedebut($datedebut);
-       		$annonces->setVille($ville);
-       		$annonces->setNbplace($nbplace);
-       		$annonces->setprix($prix);
-       		$annonces->setDescription($description);
-       		$annonces->setDuree($duree);
-
-       		$em = $this->getDoctrine()->getManager();
-
-       		$em->flush();
-       		$this->addFlash('message', 'Annonce modifiée !');
-
-       		return $this->redirectToRoute('View_all_annonce_route');
+          return $this->render('pages/edit.html.twig',[
+                  'id' => $id,
+                  'form' => $form->createView()
+          ]);
        }
+       else {
+          $this->addFlash('refus', 'Autorisation refusée !');
+       }
+        return $this->redirectToRoute('View_all_annonce_route');
 
-        return $this->render('pages/edit.html.twig',[
-        	'id' => $id,
-    		'form' => $form->createView()
-    	]);
+       
     }
 
 
@@ -164,13 +177,53 @@ class AnnonceController extends Controller
      */
     public function deleteAnnonceAction($id)
     {
+
+
     	$em =$this->getDoctrine()->getManager();
     	$annonce = $em->getRepository('AppBundle:Annonce')->find($id);
-    	$em->remove($annonce);
-      //"Met à jour la BDD"
-    	$em->flush();
-    	$this->addFlash('message', 'Annonce Supprimée !');
+      $user = $this->getUser();
 
+      
+      if (($annonce->getIdUser()) == ($user->getId())) {
+        $em->remove($annonce);
+        //"Met à jour la BDD"
+        $em->flush();
+        $this->addFlash('message', 'Annonce Supprimée !');
+      }
+      else{
+        $this->addFlash('refus', 'Autorisation refusée !');
+
+      }
+    	
+        return $this->redirectToRoute('View_all_annonce_route');
+    }
+
+        /**
+     * @Route("/createR/{id}", name="create_reservation_route")
+     */
+    public function createReservationAction($id)
+    {
+      $em =$this->getDoctrine()->getManager();
+      $annonce = $em->getRepository('AppBundle:Annonce')->find($id);
+      $user = $this->getUser();
+
+      if (($annonce->getIdUser()) != ($user->getId())) {
+
+        $reservation = new Reservation;
+
+        $reservation->setDatereservation(date("Y-m-d"));
+        $reservation->setIdAnnonce($annonce->getId());
+
+        $em = $this->getDoctrine()->getManager();
+  
+        $em->flush();
+        $this->addFlash('message', 'Réservé !');
+      }
+      else{
+        $this->addFlash('refus', 'Autorisation refusée !');
+
+      }
+      
         return $this->redirectToRoute('View_all_annonce_route');
     }
 

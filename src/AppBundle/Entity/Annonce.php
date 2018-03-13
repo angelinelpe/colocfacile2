@@ -63,6 +63,11 @@ class Annonce
      */
     private $description;
 
+    /**
+      * @var int
+     * @ORM\Column(name="idUser", type="integer")
+     */
+    private $idUser;
 
     /**
      * Get id
@@ -217,5 +222,30 @@ class Annonce
     {
         return $this->description;
     }
+
+       /**
+     * Set idUser
+     *
+     * @param integer $idUser
+     *
+     * @return Annonce
+     */
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    /**
+     * Get idUser
+     *
+     * @return int
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
 }
 
