@@ -22,6 +22,14 @@ class AnnonceController extends Controller
      */
     public function showAllAnnonceAction(Request $request)
     {
+        
+
+    $breadcrumbs = $this->get("white_october_breadcrumbs");
+    $user = $this->getUser();
+    // Simple example
+    $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+
+ 
         // La variable annonce prend toute les annonces récupérer par Doctrine
         $annonces = $this->getDoctrine()->getRepository('AppBundle:Annonce')->findAll();
 
@@ -38,6 +46,13 @@ class AnnonceController extends Controller
      */
     public function createAnnonceAction(Request $request)
     {
+
+    $breadcrumbs = $this->get("white_october_breadcrumbs");
+    $user = $this->getUser();
+    // Simple example
+    $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+    $breadcrumbs->addItem("Créer", $this->get("router")->generate("create_annonce_route"));
+
 
        $user = $this->getUser();
        $annonce = new Annonce;
@@ -89,6 +104,12 @@ class AnnonceController extends Controller
      */
     public function editAnnonceAction(Request $request, $id)
     {
+
+    $breadcrumbs = $this->get("white_october_breadcrumbs");
+    $user = $this->getUser();
+    // Simple example
+    $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+    $breadcrumbs->addItem("Modifier");
 
     //Récupère les données de l'annonce dans la BDD
     $user = $this->getUser();
@@ -161,6 +182,11 @@ class AnnonceController extends Controller
     public function viewAnnonceAction($id)
     {
     	
+    $breadcrumbs = $this->get("white_october_breadcrumbs");
+    $user = $this->getUser();
+    // Simple example
+    $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+    $breadcrumbs->addItem("Voir");
 
     	$annonces = $this->getDoctrine()->getRepository('AppBundle:Annonce')->find($id);
     //	echo '<pre>';
@@ -198,6 +224,7 @@ class AnnonceController extends Controller
         return $this->redirectToRoute('View_all_annonce_route');
     }
 
+
         /**
      * @Route("/createR/{id}", name="create_reservation_route")
      */
@@ -210,13 +237,20 @@ class AnnonceController extends Controller
       if (($annonce->getIdUser()) != ($user->getId())) {
 
         $reservation = new Reservation;
-
-        $reservation->setDatereservation(date("Y-m-d"));
+        //changeIdGeneratorType($em,$reservation);
+        $reservation->setDatereservation(new \DateTime());
         $reservation->setIdAnnonce($annonce->getId());
+        $reservation->setIdUser($user->getId());
+
+        //echo '<pre>';
+        //print_r($reservation);
+        //print_r($user->getId());
+        //echo'</pre>';
 
         $em = $this->getDoctrine()->getManager();
-  
+        $em->persist($reservation);
         $em->flush();
+
         $this->addFlash('message', 'Réservé !');
       }
       else{
@@ -226,5 +260,6 @@ class AnnonceController extends Controller
       
         return $this->redirectToRoute('View_all_annonce_route');
     }
+
 
 }

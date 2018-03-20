@@ -12,14 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reservation
 {
-   /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+   
+    /**
+     * @var int 
+     * 
+     * @ORM\Column(name="id", type="integer") 
+     * @ORM\Id 
+     * @ORM\GeneratedValue(strategy="AUTO")  
+     */ private $id;
 
     /**
      * @var int
@@ -35,8 +35,15 @@ class Reservation
      */
     private $datereservation;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idUser", type="integer")
+     */
+    private $idUser;
 
-/**
+
+    /**
      * Get id
      *
      * @return int
@@ -46,17 +53,16 @@ class Reservation
         return $this->id;
     }
 
-
-   /**
+    /**
      * Set idAnnonce
      *
      * @param integer $idAnnonce
      *
-     * @return int
+     * @return Reservation
      */
-    public function setIdUser($idAnnonce)
+    public function setIdAnnonce($idAnnonce)
     {
-        $this->idAnnnonce = $idAnnonce;
+        $this->idAnnonce = $idAnnonce;
 
         return $this;
     }
@@ -71,7 +77,6 @@ class Reservation
         return $this->idAnnonce;
     }
 
-
     /**
      * Set datereservation
      *
@@ -79,7 +84,7 @@ class Reservation
      *
      * @return Reservation
      */
-    public function setDatedebut($datereservation)
+    public function setDatereservation($datereservation)
     {
         $this->datereservation = $datereservation;
 
@@ -96,32 +101,28 @@ class Reservation
         return $this->datereservation;
     }
 
- 
     /**
-     * Set idAnnonce
+     * Set idUser
      *
-     * @param integer $idAnnonce
+     * @param integer $idUser
      *
      * @return Reservation
      */
-    public function setIdAnnonce($idAnnonce)
+    public function setIdUser($idUser)
     {
-        $this->idAnnonce = $idAnnonce;
+        $this->idUser = $idUser;
 
         return $this;
     }
 
     /**
-     * Set datereservation
+     * Get idUser
      *
-     * @param \DateTime $datereservation
-     *
-     * @return Reservation
+     * @return int
      */
-    public function setDatereservation($datereservation)
+    public function getIdUser()
     {
-        $this->datereservation = $datereservation;
-
-        return $this;
+        return $this->idUser;
     }
 }
+

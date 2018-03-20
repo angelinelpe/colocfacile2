@@ -153,3 +153,7 @@ easy_admin:
     entities:
         User:
             class: AppBundle\Entity\User
+
+# BreadCrumbs Configuration
+
+white_october_breadcrumbs: ~

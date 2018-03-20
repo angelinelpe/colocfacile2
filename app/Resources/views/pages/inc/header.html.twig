@@ -13,14 +13,18 @@
   </button>
    <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" >
-              <a href='{{ absolute_url(asset('')) }}app_dev.php/admin'class="nav-link" >Backoffice</a>
-      </li>
       <li class="nav-item">
+              <a href='{{ absolute_url(asset('')) }}app_dev.php/reservation'class="nav-link" >Mes réservations</a>
+      </li>
+      <li class="nav-item" >
               <a href='{{ absolute_url(asset('')) }}app_dev.php/register'class="nav-link" style="">S'inscrire</a>
       </li>
+      </li>
       <li class="nav-item">
-             
+             <a href='{{ absolute_url(asset('')) }}app_dev.php/logout'class="nav-link" >Se déconnecter</a>
+      </li>
+      <li class="nav-item" >
+              <a href='{{ absolute_url(asset('')) }}app_dev.php/admin'class="nav-link" >Backoffice</a>
       </li>
       <li class="nav-item">
         
@@ -40,10 +44,13 @@
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
-
-
 </nav>
+{{ wo_render_breadcrumbs() }}
+
+
         <div class="container">
+
+
 
         {% for success_message in app.session.flashbag.get('message') %}
           <br>

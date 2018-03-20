@@ -4752,7 +4752,6 @@ tbody.collapse.show {
   margin-bottom: 1rem;
   list-style: none;
   background-color: #78C2AD;
-  border-radius: 0.4rem;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {

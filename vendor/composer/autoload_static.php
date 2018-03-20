@@ -256,6 +256,13 @@ class ComposerStaticInit91be5a420cffce4a774fc356a25db6bb
     );
 
     public static $prefixesPsr0 = array (
+        'W' => 
+        array (
+            'WhiteOctober\\BreadcrumbsBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/whiteoctober/breadcrumbs-bundle',
+            ),
+        ),
         'T' => 
         array (
             'Twig_Extensions_' => 

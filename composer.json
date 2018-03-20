@@ -32,7 +32,8 @@
         "symfony/symfony": "3.4.*",
         "symfony/templating": "^3.4",
         "twbs/bootstrap": "^3.3",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "whiteoctober/breadcrumbs-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -73,5 +74,6 @@
         "branch-alias": {
             "dev-master": "3.4-dev"
         }
-    }
+    },
+    "ramsey/uuid": "^3.7"
 }
