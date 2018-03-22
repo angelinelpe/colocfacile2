@@ -23,6 +23,14 @@ class ReservationController extends Controller
     public function showAllReservationAction(Request $request)
     {
 
+      if($request->request->get('style')){
+        $style = $request->request->get('style');
+        dump($style);
+    }
+    else{
+        $style = 'bootstrap';
+    }
+
       $breadcrumbs = $this->get("white_october_breadcrumbs");
     $user = $this->getUser();
     // Simple example
@@ -35,7 +43,8 @@ class ReservationController extends Controller
 
       
       return $this->render('pages/indexR.html.twig', ['reservations' => $reservations,
-      'user' => $user]);
+      'user' => $user,
+      'style' => $style]);
 
     }
 
@@ -46,8 +55,9 @@ class ReservationController extends Controller
      */
     public function viewReservationAction($id)
     {
-    	
-     
+
+        $style = 'bootstrap';
+    
 
     	$reservations = $this->getDoctrine()->getRepository('AppBundle:Reservation')->find($id);
       $idAnnonce = $reservations->getIdAnnonce();
@@ -64,7 +74,8 @@ class ReservationController extends Controller
         return $this->render('pages/viewR.html.twig', [
         	'id'=> $id,
         	'reservation' => $reservations,
-          'annonce' => $annonce]);
+          'annonce' => $annonce,
+          'style' => $style]);
     }
 
         /**

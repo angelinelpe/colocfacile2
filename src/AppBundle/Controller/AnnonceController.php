@@ -56,6 +56,14 @@ class AnnonceController extends Controller
     public function createAnnonceAction(Request $request)
     {
 
+     if($request->request->get('style')){
+        $style = $request->request->get('style');
+        dump($style);
+    }
+    else{
+        $style = 'bootstrap';
+    }
+
     $breadcrumbs = $this->get("white_october_breadcrumbs");
     $user = $this->getUser();
     // Simple example
@@ -103,7 +111,8 @@ class AnnonceController extends Controller
        	
        }
         return $this->render('pages/create.html.twig', [
-        	'form' => $form->createView()
+        	'form' => $form->createView(),
+          'style' => $style
     ]);
     }
 
@@ -113,6 +122,14 @@ class AnnonceController extends Controller
      */
     public function editAnnonceAction(Request $request, $id)
     {
+
+       if($request->request->get('style')){
+        $style = $request->request->get('style');
+        dump($style);
+      }
+      else{
+        $style = 'bootstrap';
+      }
 
     $breadcrumbs = $this->get("white_october_breadcrumbs");
     $user = $this->getUser();
@@ -173,7 +190,8 @@ class AnnonceController extends Controller
 
           return $this->render('pages/edit.html.twig',[
                   'id' => $id,
-                  'form' => $form->createView()
+                  'form' => $form->createView(),
+                  'style' => $style
           ]);
        }
        else {
@@ -188,8 +206,10 @@ class AnnonceController extends Controller
      /**
      * @Route("/view/{id}", name="view_annonce_route")
      */
-    public function viewAnnonceAction($id)
+    public function viewAnnonceAction($id,Request $request)
     {
+
+      $style = 'bootstrap';
     	
     $breadcrumbs = $this->get("white_october_breadcrumbs");
     $user = $this->getUser();
@@ -204,7 +224,8 @@ class AnnonceController extends Controller
     //	exit();
         return $this->render('pages/view.html.twig', [
         	'id'=> $id,
-        	'annonce' => $annonces ]);
+        	'annonce' => $annonces,
+          'style' => $style ]);
     }
 
         /**
@@ -212,6 +233,7 @@ class AnnonceController extends Controller
      */
     public function deleteAnnonceAction($id)
     {
+
 
 
     	$em =$this->getDoctrine()->getManager();
@@ -239,6 +261,7 @@ class AnnonceController extends Controller
      */
     public function createReservationAction($id)
     {
+
       $em =$this->getDoctrine()->getManager();
       $annonce = $em->getRepository('AppBundle:Annonce')->find($id);
       $user = $this->getUser();

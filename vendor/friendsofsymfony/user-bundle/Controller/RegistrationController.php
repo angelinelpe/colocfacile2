@@ -56,6 +56,14 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
+        if($request->request->get('style')){
+        $style = $request->request->get('style');
+        dump($style);
+         }
+        else{
+        $style = 'bootstrap';
+        }
+
         $user = $this->userManager->createUser();
         $user->setEnabled(true);
 
@@ -98,6 +106,7 @@ class RegistrationController extends Controller
 
         return $this->render('@FOSUser/Registration/register.html.twig', array(
             'form' => $form->createView(),
+            'style' => $style,
         ));
     }
 
