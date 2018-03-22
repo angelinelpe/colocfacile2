@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <title>Colocations CRUD</title>
-        <link rel="stylesheet" href="{{absolute_url(asset('css/bootstrap.css'))}}" />
+         {% if style == 'bootstrap2' %}
+        <link rel="stylesheet" href="{{absolute_url(asset('css/bootstrap2.css'))}}" />
+        {% else %}
+          <link rel="stylesheet" href="{{absolute_url(asset('css/bootstrap.css'))}}" />
+        {% endif %}
+        <script type="text/javascript">
+        </script>
     </head>
     <body>
     	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -31,17 +37,18 @@
       </li>
     </ul>
     <div class="form-group" style="margin-right:2%; margin-top:2%;">
- <FORM action="AnnonceController.php" method="POST" class="form-group">
-              <SELECT name="style" size="1" class="custom-select">
+ <FORM action="annonce" method="POST" class="form-inline my-2 my-lg-0">
+              <SELECT name="style" size="1" class="custom-select mr-sm-2">
               <option selected="">Choisissez votre style</option>
               <OPTION value="bootstrap" >Minty</OPTION>
               <OPTION value="bootstrap2" >Journal</OPTION>
               </SELECT>
-              </FORM>
+              <button class="btn btn-secondary btn-sm" type="submit">Valider</button>
+  </FORM>
 </div>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-secondary btn-sm" type="submit">Search</button>
     </form>
   </div>
 </nav>

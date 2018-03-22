@@ -22,8 +22,15 @@ class AnnonceController extends Controller
      */
     public function showAllAnnonceAction(Request $request)
     {
-        
-
+    
+    if($request->request->get('style')){
+        $style = $request->request->get('style');
+        dump($style);
+    }
+    else{
+        $style = 'bootstrap';
+    }
+    
     $breadcrumbs = $this->get("white_october_breadcrumbs");
     $user = $this->getUser();
     // Simple example
@@ -38,7 +45,9 @@ class AnnonceController extends Controller
 //        echo "</pre>";
 
         // Affiche la page index.html.twig 
-        return $this->render('pages/index.html.twig', ['annonces' => $annonces]);
+        return $this->render('pages/index.html.twig', [
+          'annonces' => $annonces,
+          'style' => $style]);
     }
 
      /**

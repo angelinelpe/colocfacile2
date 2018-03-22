@@ -23,25 +23,19 @@ class ReservationController extends Controller
     public function showAllReservationAction(Request $request)
     {
 
+      $breadcrumbs = $this->get("white_october_breadcrumbs");
+    $user = $this->getUser();
+    // Simple example
+    $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+    $breadcrumbs->addItem("Mes réservations");
+
       $user = $this->getUser();
       // La variable reservation prend toutes les réservations récupérés par Doctrine
       $reservations = $this->getDoctrine()->getRepository('AppBundle:Reservation')->findAll();
 
-      foreach ($reservations as $key => $value) {
-
-       if($user->getId() = $reservations->getUser()){
-
-        //        echo "<pre>";
-        //        print_r($reservations);
-        //        echo "</pre>";
-
-        // Affiche la page indexR.html.twig 
-        return $this->render('pages/indexR.html.twig', ['reservations' => $reservations]);
-
-      }
       
-      }
-      
+      return $this->render('pages/indexR.html.twig', ['reservations' => $reservations,
+      'user' => $user]);
 
     }
 
@@ -53,19 +47,24 @@ class ReservationController extends Controller
     public function viewReservationAction($id)
     {
     	
+     
 
     	$reservations = $this->getDoctrine()->getRepository('AppBundle:Reservation')->find($id);
-      $annonce = $this->getDoctrine()->getRepository('AppBundle:Annonce')->find($id);
+      $idAnnonce = $reservations->getIdAnnonce();
+      $em =$this->getDoctrine()->getManager();
+      $annonce = $em->getRepository('AppBundle:Annonce')->find($idAnnonce);
 
-      
-    //	echo '<pre>';
-    //	print_r($reservations);
-    //	echo'</pre>';
-    //	exit();
+       $breadcrumbs = $this->get("white_october_breadcrumbs");
+      $user = $this->getUser();
+      // Simple example
+      $breadcrumbs->addItem("Annonce", $this->get("router")->generate("View_all_annonce_route"));
+      $breadcrumbs->addItem("Mes reservations", $this->get("router")->generate("View_all_reservation_route"));
+      $breadcrumbs->addItem($id);
+
         return $this->render('pages/viewR.html.twig', [
         	'id'=> $id,
         	'reservation' => $reservations,
-          'annonce' => $annonce ]);
+          'annonce' => $annonce]);
     }
 
         /**

@@ -41,6 +41,13 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+        if($request->request->get('style')){
+            $style = $request->request->get('style');
+            dump($style);
+        }
+        else{
+            $style = 'bootstrap';
+        }
         /** @var $session Session */
         $session = $request->getSession();
 
@@ -72,6 +79,7 @@ class SecurityController extends Controller
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,
+            'style' => $style,
         ));
     }
 

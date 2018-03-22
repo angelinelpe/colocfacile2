@@ -20,7 +20,7 @@
   <tbody>
 
     {% for reservation in reservations %}
-
+    {% if reservation.idUser == user.id  %}
     <tr>
       <th scope="row">{{reservation.id}}</th>
       <td>{{reservation.idAnnonce}}</td>
@@ -30,7 +30,7 @@
 
       </td>
     </tr>
-
+  {% endif %}
   {% else %}
     <tr>
       <td>/NA</td>
